@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.next/
+next-env.d.ts
+*.tsbuildinfo
+coverage/
+contracts/out/
+contracts/cache/
+.env
+.env.*
+!.env.example
+memory.json
+STOP
+.DS_Store
