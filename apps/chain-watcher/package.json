@@ -1,0 +1,13 @@
+{
+  "name": "@wa/chain-watcher",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Scans Robinhood Chain for OrderPaid and grants entitlements (WA-804, sprint 8). A stub until then.",
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "node --test \"test/**/*.test.ts\"",
+    "start": "node dist/main.js"
+  }
+}
