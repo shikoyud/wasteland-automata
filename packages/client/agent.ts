@@ -54,7 +54,7 @@ async function api(method: string, path: string, body?: J): Promise<{ status: nu
     try {
       const res = await fetch(CFG.api + path, { method, body: body ? JSON.stringify(body) : undefined, signal: AbortSignal.timeout(35_000),
         headers: { authorization: `Bearer ${CFG.token}`, "content-type": "application/json" } });
-      const data = await res.json().catch(() => ({}));
+      const data: J = await res.json().catch(() => ({}));
       if (res.status === 401 || res.status === 423) throw new Halt(`${data?.error?.code ?? res.status}: ${data?.error?.message ?? ""}`);
       const transient = res.status === 429 || res.status >= 500;
       if (transient && attempt < 6) { await sleep(jitter(data?.error?.retryAfterMs ?? Math.min(15_000, 1000 * 2 ** attempt))); continue; }
@@ -74,7 +74,7 @@ async function llm(messages: J[]): Promise<string> {
         headers: { "content-type": "application/json", ...(CFG.llmKey ? { authorization: `Bearer ${CFG.llmKey}` } : {}) },
         body: JSON.stringify({ model: CFG.model, messages, temperature: 0.7, max_tokens: 500, response_format: { type: "json_object" } }) });
       if (res.status === 429 || res.status >= 500) throw new Error(`LLM HTTP ${res.status}`);
-      const data = await res.json();
+      const data: J = await res.json();
       if (!res.ok) throw new Halt(`LLM refused the request (${res.status}): ${JSON.stringify(data).slice(0, 200)}`);
       const u = data.usage ?? {}, cached = u.prompt_tokens_details?.cached_tokens ?? 0;
       const usd = (((u.prompt_tokens ?? 0) - cached) * CFG.priceIn + cached * CFG.priceCached + (u.completion_tokens ?? 0) * CFG.priceOut) / 1e6;
