@@ -1,0 +1,20 @@
+{
+  "name": "@wa/world-server",
+  "version": "0.1.0",
+  "private": true,
+  "description": "The authoritative world process: 4 Hz simulation plus the agent, owner and public HTTP API.",
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "node --conditions=source --test \"test/**/*.test.ts\"",
+    "dev": "node --conditions=source --watch src/main.ts",
+    "start": "node dist/main.js"
+  },
+  "dependencies": {
+    "@wa/rules": "workspace:*",
+    "@wa/sim": "workspace:*",
+    "ajv": "^8.18.0",
+    "yaml": "^2.8.1"
+  }
+}
