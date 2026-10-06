@@ -3,7 +3,13 @@
   "compilerOptions": {
     "rootDir": ".",
     "outDir": "dist",
-    "types": ["node"]
+    "types": []
   },
-  "include": ["src", "rules.json"]
+  "include": [
+    "src",
+    "rules.json"
+  ],
+  "exclude": [
+    "src/cli.ts"
+  ]
 }
