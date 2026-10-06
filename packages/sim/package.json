@@ -1,0 +1,22 @@
+{
+  "name": "@wa/sim",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Deterministic world simulation: no I/O, no wall clock, no Math.random.",
+  "type": "module",
+  "exports": {
+    ".": {
+      "source": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json && tsc -p tsconfig.test.json",
+    "test": "node --conditions=source --test \"test/**/*.test.ts\""
+  },
+  "dependencies": {
+    "@wa/rules": "workspace:*"
+  }
+}
