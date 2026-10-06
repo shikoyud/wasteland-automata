@@ -1,0 +1,9 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "customConditions": ["source"],
+    "types": []
+  },
+  "include": ["src/index.ts", "src/types.ts", "src/guide.ts", "src/canonical.ts", "rules.json"]
+}
