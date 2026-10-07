@@ -19,6 +19,6 @@
     "guide": "node src/cli.ts --out dist/guide.md --max-tokens 4000"
   },
   "devDependencies": {
-    "gpt-tokenizer": "^3.0.1"
+    "gpt-tokenizer": "^4.0.0"
   }
 }
