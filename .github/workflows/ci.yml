@@ -23,6 +23,7 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version-file: .nvmrc
+          package-manager-cache: false # pnpm is enabled by corepack in the next step; the store is cached below
       - run: corepack enable
       - name: Cache the pnpm store
         uses: actions/cache@v4
@@ -66,6 +67,7 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version-file: .nvmrc
+          package-manager-cache: false # pnpm is enabled by corepack in the next step; the store is cached below
       - run: corepack enable
       - name: Cache the pnpm store
         uses: actions/cache@v4
