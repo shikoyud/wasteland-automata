@@ -20,7 +20,11 @@ function firstLine(error) {
 }
 
 export default async function* githubAnnotations(source) {
+  const counts = { pass: 0, fail: 0, skip: 0 };
   for await (const event of source) {
+    const isSuite = event.data?.details?.type === 'suite';
+    if (event.type === 'test:pass' && !isSuite) counts[event.data.skip ? 'skip' : 'pass']++;
+    if (event.type === 'test:fail' && !isSuite && event.data?.details?.error?.failureType !== 'subtestsFailed') counts.fail++;
     if (event.type !== 'test:fail') continue;
     const { name, file, line, column, details } = event.data;
     // Suites fail because a test inside them failed; that test has its own annotation.
@@ -28,4 +32,6 @@ export default async function* githubAnnotations(source) {
     const props = [`file=${escapeProperty(filePath(file))}`, `line=${line ?? 1}`, `col=${column ?? 1}`, `title=${escapeProperty(`Test failed: ${name}`)}`];
     yield `::error ${props.join(',')}::${escapeData(firstLine(details?.error))}\n`;
   }
+  // One notice per run, so the check page shows what ran even when everything passed.
+  yield `::notice title=Tests::${counts.pass} passed, ${counts.fail} failed, ${counts.skip} skipped\n`;
 }
