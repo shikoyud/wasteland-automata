@@ -6,9 +6,11 @@ import { dockerAvailable, root, run, tail } from './helpers.ts';
 
 const BASE = 'http://localhost:8787';
 
-async function waitForHealth(deadline: number): Promise<{ ok: boolean; worldId: string; tick: number }> {
+async function waitForHealth(deadline: number, stopped: () => string | null = () => null): Promise<{ ok: boolean; worldId: string; tick: number }> {
   let last = '';
   while (Date.now() < deadline) {
+    const why = stopped();
+    if (why) throw new Error(why);
     try {
       const res = await fetch(`${BASE}/healthz`);
       if (res.ok) return (await res.json()) as { ok: boolean; worldId: string; tick: number };
@@ -36,14 +38,20 @@ describe('WA-104 Local stack with Postgres and Anvil', () => {
     // Its own process group, so Ctrl-C reaches pnpm, the dev script and the server together.
     const dev = spawn('pnpm', ['dev'], { cwd: root, env, stdio: ['ignore', 'pipe', 'pipe'], shell: windows, detached: !windows });
     const signal = (sig: NodeJS.Signals) => {
-      if (!windows && dev.pid) process.kill(-dev.pid, sig);
-      else dev.kill(sig);
+      try {
+        if (!windows && dev.pid) process.kill(-dev.pid, sig);
+        else dev.kill(sig);
+      } catch {
+        // Already gone: nothing to stop.
+      }
     };
+    let exited: string | null = null;
+    dev.on('exit', (code, sig) => (exited = `pnpm dev exited early (code ${code}, signal ${sig})`));
     let out = '';
     dev.stdout.on('data', (d: Buffer) => (out += d.toString()));
     dev.stderr.on('data', (d: Buffer) => (out += d.toString()));
     try {
-      const health = await waitForHealth(Date.now() + 8 * 60_000).catch((e: Error) => {
+      const health = await waitForHealth(Date.now() + 8 * 60_000, () => exited).catch((e: Error) => {
         throw new Error(`${e.message}\n--- pnpm dev output ---\n${out.slice(-4000)}`);
       });
       assert.equal(health.ok, true);
