@@ -48,7 +48,8 @@ export default tseslint.config(
   },
   {
     // The published reference client is deliberately loose about JSON shapes (type J = any).
+    // Its sanitiser regex deliberately matches control, zero-width and bidi characters.
     files: ['packages/client/agent.ts'],
-    rules: { '@typescript-eslint/no-explicit-any': 'off' },
+    rules: { '@typescript-eslint/no-explicit-any': 'off', 'no-control-regex': 'off', 'no-irregular-whitespace': 'off' },
   },
 );
