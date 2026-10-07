@@ -1,0 +1,13 @@
+{
+  "name": "@wa/contracts",
+  "version": "0.1.0",
+  "private": true,
+  "description": "WastelandCheckout and its Foundry tests. Needs Foundry (forge) on the PATH.",
+  "scripts": {
+    "build": "forge build --skip test",
+    "test": "forge test"
+  },
+  "devDependencies": {
+    "forge-std": "github:foundry-rs/forge-std#v1.9.7"
+  }
+}

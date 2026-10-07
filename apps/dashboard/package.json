@@ -1,0 +1,21 @@
+{
+  "name": "@wa/dashboard",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Owner and spectator dashboard (Next.js on Vercel). A placeholder until the spectator map (WA-701).",
+  "scripts": {
+    "build": "next build",
+    "dev": "next dev --port 3000",
+    "start": "next start --port 3000",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "next": "^16.4.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0"
+  }
+}

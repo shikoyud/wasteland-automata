@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "dist",
+    "types": []
+  },
+  "include": [
+    "src",
+    "rules.json"
+  ],
+  "exclude": [
+    "src/cli.ts"
+  ]
+}

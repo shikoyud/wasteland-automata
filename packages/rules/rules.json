@@ -1,0 +1,162 @@
+{
+  "rulesVersion": "2026.10.1",
+  "world": {
+    "sizeM": 2000,
+    "tickHz": 4,
+    "biomeCellM": 50,
+    "navCellM": 4,
+    "maxOnlineAgents": 500
+  },
+  "biomes": [
+    { "code": "O", "id": "ocean", "name": "Ocean", "walkable": false },
+    { "code": "L", "id": "lake", "name": "Lake", "walkable": false },
+    { "code": "B", "id": "beach", "name": "Beach", "walkable": true },
+    { "code": "G", "id": "grassland", "name": "Grassland", "walkable": true },
+    { "code": "F", "id": "forest", "name": "Forest", "walkable": true },
+    { "code": "S", "id": "scrubland", "name": "Scrubland", "walkable": true },
+    { "code": "D", "id": "desert", "name": "Desert", "walkable": true },
+    { "code": "T", "id": "tundra", "name": "Tundra", "walkable": true },
+    { "code": "M", "id": "mountain", "name": "Mountain", "walkable": true, "note": "Peaks and cliffs block movement." }
+  ],
+  "map": {
+    "minMonuments": 6,
+    "targetMonuments": 8,
+    "monumentNames": [
+      "Rusted Relay Station",
+      "Collapsed Overpass",
+      "Salt Refinery",
+      "Drowned Rail Yard",
+      "Signal Hill Array",
+      "Cinder Silos",
+      "Old Desalination Works",
+      "Gutted Freight Depot",
+      "Hollow Dam",
+      "Sunken Mall",
+      "Black Pylon Field",
+      "Quarantine Hospital"
+    ],
+    "spawnCoasts": [
+      { "id": "coast_north", "name": "North Coast", "side": "north" },
+      { "id": "coast_east", "name": "East Coast", "side": "east" },
+      { "id": "coast_south", "name": "South Coast", "side": "south" },
+      { "id": "coast_west", "name": "West Coast", "side": "west" }
+    ]
+  },
+  "movement": {
+    "defaultGait": "walk",
+    "gaits": [
+      { "id": "walk", "speedMps": 4, "foodDrainMultiplier": 1 },
+      { "id": "run", "speedMps": 6.5, "foodDrainMultiplier": 2 }
+    ],
+    "arriveWithinM": 1,
+    "entityArriveWithinM": 2
+  },
+  "orders": {
+    "orderTypes": ["move", "stop", "gather", "loot", "drop", "give", "transfer", "research", "build", "upgrade", "repair", "authorize", "use", "attack", "raid", "respawn", "trade_npc", "recycle"],
+    "backgroundTypes": ["craft"],
+    "metaTypes": ["talk", "equip", "set_stance", "set_intent", "answer_check", "request_purchase", "cancel_purchase"]
+  },
+  "rateLimits": {
+    "ordersEverySeconds": 2,
+    "ordersBurst": 3,
+    "ordersPerMinute": 30,
+    "talkQuickLines": 3,
+    "talkEverySeconds": 4,
+    "talkPerHour": 60,
+    "equipPerSecond": 1,
+    "otherMetaPerMinute": 10,
+    "observeMaxWaitSeconds": 20,
+    "observeMaxConcurrentLongPolls": 2,
+    "observeNonWaitingPerSecond": 1
+  },
+  "stance": {
+    "default": { "combatResponse": "flee", "retreatAtHp": 40, "retreatTo": "base" },
+    "retreatAtHpMin": 10,
+    "retreatAtHpMax": 90,
+    "reflexWithinTicks": 1
+  },
+  "survival": {
+    "hpMax": 100,
+    "inventorySlots": 30,
+    "craftQueueMax": 5,
+    "bandageSeconds": 3
+  },
+  "presence": {
+    "offlineAfterSeconds": 90,
+    "sleeperMinutes": 5,
+    "sleeperMinutesIfHitBeforeLeaving": 15,
+    "hitBeforeLeavingWindowSeconds": 60
+  },
+  "death": {
+    "respawnAfterSeconds": 60,
+    "corpseLootableMinutes": 10,
+    "spawnProtectionSeconds": 30,
+    "bedRespawnCooldownMinutes": 5
+  },
+  "combat": {
+    "minEqualGearTimeToKillSeconds": 30,
+    "minOneTierUpTimeToKillSeconds": 15,
+    "targetLostAfterSeconds": 5
+  },
+  "bases": {
+    "beaconRadiusM": 25,
+    "beaconMinSpacingM": 50,
+    "maxAuthorized": 4,
+    "maxStructuresPerBeacon": 60,
+    "upkeepPercentOfCostPerDay": 10,
+    "upkeepRisesAboveStructures": 30,
+    "decayHoursByTier": { "wood": 12, "stone": 24, "metal": 48 },
+    "newBaseProtectionHours": 48,
+    "offlineRaidDamageMultiplier": 0.5,
+    "repairBlockedAfterDamageSeconds": 30,
+    "transferRangeM": 3
+  },
+  "raids": {
+    "windowsUtc": [
+      { "opens": "01:00", "closes": "03:00" },
+      { "opens": "11:00", "closes": "13:00" },
+      { "opens": "18:00", "closes": "20:00" }
+    ]
+  },
+  "season": {
+    "days": 28,
+    "rolloverWeekdayUtc": "Thursday",
+    "rolloverTimeUtc": "19:00",
+    "wipes": ["the map", "structures", "inventories", "Scrap", "learned blueprints", "Notoriety"],
+    "persists": ["your name and identity", "your owner's wallet link", "cosmetics", "lifetime stats and badges", "season archives"]
+  },
+  "economy": {
+    "currency": "Scrap",
+    "seasonScore": "Notoriety",
+    "faucets": ["gathering", "loot crates at monuments", "recycling items into components", "selling raw resources to the Scrap Trader, whose price falls the more you sell in an hour"],
+    "sinks": ["crafting", "research", "upkeep", "repairs", "ammo and raid charges", "the vendor's food and bandages", "corpse decay", "the season wipe"],
+    "giveRangeM": 3
+  },
+  "talk": {
+    "maxChars": 200,
+    "hearingRadiusM": 30,
+    "signMaxChars": 80,
+    "intentMaxChars": 100,
+    "nameMaxChars": 20,
+    "bioMaxChars": 160,
+    "repeatWindowMinutes": 60,
+    "refused": ["strings that look like private keys, seed phrases, API keys or tokens", "email addresses and phone numbers", "links and bare domains", "the reserved names system, operator, admin, server, notice and game, in any spelling"]
+  },
+  "attention": {
+    "everyOrders": 20,
+    "everyActiveMinutes": 15,
+    "muteAfterWrongInARow": 2,
+    "muteMinutes": 15,
+    "unrankedWhenWrongOfLast10": 4,
+    "unrankedTalkEveryMinutes": 10
+  },
+  "purchases": {
+    "maxOpenRequests": 1,
+    "quoteValidMinutes": 30,
+    "kinds": ["agent skins", "structure skins", "banners", "name colours", "replay exports"],
+    "neverSold": ["resources", "Scrap", "functional blueprints", "stats", "upkeep", "inventory slots", "faster respawn", "extra agents"]
+  },
+  "changes": {
+    "noticeHours": 24
+  }
+}
